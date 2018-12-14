@@ -1,0 +1,151 @@
+<project name="Sample usage of Salesforce Ant tasks" basedir="." xmlns:sf="antlib:com.salesforce">
+
+    <property file="build.properties"/>
+	 <taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
+        <classpath>
+            <pathelement location="..\ant-salesforce.jar" />        	
+        </classpath>
+    </taskdef>
+    
+    <target name="clean">
+		<delete dir="deploymentRoot" />
+	</target>
+	
+	<target name="r" depends="clean">
+		<mkdir dir="retrieveUnpackaged"/>
+		<sf:retrieve  username="${sf.source.username}" 
+			password="${sf.source.password}" 
+			serverurl="${sf.source.serverurl}" 
+			retrieveTarget="retrieveUnpackaged" 
+			unpackaged="unpackaged/package.xml"/>
+    </target>
+	
+	<target name="d">
+	  <sf:deploy
+	   username="${sf.target.username}"
+	   password="${sf.target.password}" 
+	   serverurl="${sf.target.serverurl}"
+	   checkOnly="${sf.target.validateOnly}"     
+	   runAllTests="true"
+	   deployRoot="retrieveUnpackaged" 
+	   rollbackOnError="true"
+	   />  
+	</target>
+ 
+	<!-- <target name="sD">
+		<sf:deploy
+			username="${sf.target.username}"
+			password="${sf.target.password}"
+			serverurl="${sf.target.serverurl}"
+			checkOnly="true"
+			rollbackOnError="${sf.target.rollbackOnError}"
+			deployroot="deploymentRoot"
+			allowMissingFiles="true"
+			autoUpdatePackage="true"
+			logType="Detail"
+			
+			pollWaitMillis="40000"
+		>
+		</sf:deploy> 
+	</target> -->
+
+	<!-- <target name="cD">
+		<sf:deploy
+			username="${sf.target.username}"
+			password="${sf.target.password}"
+			serverurl="${sf.target.serverurl}"
+			checkOnly="${sf.target.validateOnly}"
+			rollbackOnError="${sf.target.rollbackOnError}"
+			runAllTests="${sf.target.runAllTests}"
+			deployroot="deploymentRoot"
+			pollWaitMillis="40000"/>
+	</target>
+	 -->
+	<!-- <target name="Specificdeploy">
+		<sf:deploy username="${sf.target.username}"
+				   password="${sf.target.password}"
+				   serverurl="${sf.target.serverurl}"
+				   checkOnly="true"
+				   deployRoot="deploymentRoot"
+				   testLevel="RunSpecifiedTests"
+				   maxPoll="300">
+				   
+				   
+		 <runtest>Test_OpportunityTriggerHelper</runtest> 
+		 <runtest>Test_Batch_ActivityCount</runtest> 
+		 <runtest>Test_Constants</runtest> 
+		 <runtest>Test_CaseTriggerHelper</runtest> 
+		 <runtest>Test_Constants</runtest> 
+		 <runtest>Test_TriggerEvent</runtest> 
+		 <runtest>Test_Event_UpdatePrewireField</runtest> 
+		 <runtest>TestBatch_Opportunity_VisitSummaries</runtest>  -->
+		 
+		
+		<!-- <runtest>ObjectsAccessValidatorControllerTest</runtest> -->
+		<!-- <runtest>ProjectExpenseTypeTest</runtest> -->
+		<!-- <runtest>SetExpenseReportApproverTest</runtest> -->
+		<!-- <runtest>SetTimecardApproverTest</runtest> -->
+		<!-- <runtest>Test_RestrictionClearanceRequest_Owner</runtest> -->
+
+
+		
+		<!-- <runtest>Test_IntranetItemTrigger</runtest> -->
+		<!-- <runtest>PSSRequestTriggerHelper_Test</runtest> -->
+		<!-- <runtest>Test_OpportunityTriggerHelper</runtest> -->
+		<!-- <runtest>Test_Trigger_SubscriptionPeriod</runtest> -->
+		<!-- <runtest>Test_SBQQ_SubscriptionTrigger</runtest> -->
+		<!-- <runtest>Test_MemberTravelCompSiteController</runtest> -->
+		<!-- <runtest>PSSRequestTriggerHelper_Test</runtest> -->
+		<!-- <runtest>Test_OpportunityMergeController</runtest> -->
+		<!-- <runtest>Test_SiteUserHelper</runtest> -->
+		<!-- <runtest>Test_ContractTrigger</runtest> -->
+		<!-- <runtest>Test_SBQQ_SubscriptionTrigger</runtest> -->
+		
+		<!-- <runtest>PSSRequestEmailHandlerTest</runtest> -->
+		<!-- <runtest>SandboxSetupTest</runtest> -->
+		<!-- <runtest>Test_Batch_MonitorATMs</runtest> -->
+		<!-- <runtest>Test_ContractControllerExtension</runtest> -->
+		<!-- <runtest>Test_ContractTrigger</runtest> -->
+		<!-- <runtest>Test_DeepCloneController</runtest> -->
+		<!-- <runtest>Test_MassCreateBundleOpportinities_Ext</runtest> -->
+		<!-- <runtest>Test_MemberInteractionTrigger</runtest> -->
+		<!-- <runtest>Test_MembershipViewController</runtest> -->
+		
+		<!-- <runtest>Test_OpportunityTriggerHelper</runtest> -->
+		<!-- <runtest>Test_ProgramPackageRoyallTriggerHelper</runtest> -->
+		<!-- <runtest>Test_SBQQ_SubscriptionTrigger</runtest> -->
+		<!-- <runtest>Test_SiteController</runtest> -->
+		<!-- <runtest>Test_SiteProfileActionController</runtest> -->
+		
+		<!-- <runtest>Test_TestUtilities</runtest> -->
+		<!-- <runtest>Test_Trigger_ProjectRole</runtest> -->
+		<!-- <runtest>Test_Trigger_StaffHistory</runtest> -->
+		<!-- <runtest>Test_Trigger_SubscriptionPeriod</runtest> -->
+		<!-- <runtest>Test_TriggerContact</runtest> -->
+		<!-- <runtest>Test_TriggerEvent</runtest> -->
+		<!-- <runtest>Test_TriggerProject</runtest> -->
+		<!-- <runtest>Test_UserTrigger</runtest> -->
+		<!-- <runtest>TestBatch_ConfirmActiveContract</runtest> -->
+		<!-- <runtest>TestBatch_RoyallShiftAccountStatus</runtest> -->
+		<!-- <runtest>testContactExtension</runtest> -->
+		<!-- <runtest>testContactTriggerUtilities</runtest> -->
+		<!-- <runtest>TestUtil</runtest> -->
+	<!-- </sf:deploy>
+	</target> -->
+	
+	<!-- Decructive Changes -->
+	<!-- <target name="undeployCode">
+		<sf:deploy 
+			username="${sf.target.username}" 
+			password="${sf.target.password}" 
+			serverurl="${sf.target.serverurl}" 
+			checkOnly="true"
+			rollbackOnError="true"
+			testLevel="RunSpecifiedTests"
+			deployRoot="deploymentRoot"
+			pollWaitMillis="40000">
+	
+			<runtest>Test_TaskTrigger</runtest>
+		</sf:deploy>
+	</target>  -->
+</project>
